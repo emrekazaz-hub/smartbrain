@@ -40,10 +40,10 @@ const Particlee = () => {
     },
     links: {
       color: "#ffffff",
-      distance: 150,
+      distance: 170,
       enable: true,
       opacity: 0.5,
-      width: 1,
+      width:1,
     },
     collisions: {
       enable: true,
@@ -55,18 +55,18 @@ const Particlee = () => {
         default: "bounce",
       },
       random: false,
-      speed: 3,
+      speed: 1,
       straight: false,
     },
     number: {
       density: {
         enable: true,
-        area: 830,
+        area: 800,
       },
-      value: 70,
+      value: 80,
     },
     opacity: {
-      value: 0.5,
+      value: 0.1,
     },
     reduceDuplicates: true,
     shape: {

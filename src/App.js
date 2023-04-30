@@ -10,128 +10,178 @@ import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
 
+//You must add your own API key here from Clarifai.
 const app = new Clarifai.App({
-  apiKey: "413d037fed0c4f1994f79edcb6ef02fd",
-});
-
-
-const retunrClarifaiJSONRequest = (imagegUrl) => {
-  const PAT = 'bf9078dc01664b64a55e0239d7d79ec6';
-  const USER_ID = 'emrekazaz13';       
-  const APP_ID = 'smartbrain';
-  const MODEL_ID = 'face-detection'; 
-  const IMAGE_URL = imagegUrl;
-
-  const raw = JSON.stringify({
-    "user_app_id": {
-        "user_id": USER_ID,
-        "app_id": APP_ID
-    },
-    "inputs": [
-        {
-            "data": {
-                "image": {
-                    "url": IMAGE_URL
-                }
-            }
-        }
-    ]
-});
-
-const requestOptions = {
-  method: 'POST',
-  headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Key ' + PAT
-  },
-  body: raw
-};
-return requestOptions
-
-}
-
-//------------------------------------------------------------------
-
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      input: "",
-      imageUrl: "",
-      box: {},
-      route: "signin",
-      isSignedIn : false
-    };
-  }
-
-
-  calculateFaceLocation = (data) => {
-    const clarifaiFace =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById("inputimage");
-    const width = Number(image.width);
-    const height = Number(image.height);
-    console.log('width, height:', width, height);
-    console.log(clarifaiFace);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - clarifaiFace.right_col * width,
-      bottomRow: height - clarifaiFace.bottom_row * height,
-    };
-  };
-  
-
-  displayFaceBox = (box) => {
-    this.setState({ box: box });
-  };
-
-  onInputChange = (event) => {
-    this.setState({ input: event.target.value });
-  };
-
-  onSubmit = (cikti) => {
-    this.setState({ imageUrl: this.state.input });
-    fetch("https://api.clarifai.com/v2/models/" + 'face-detection' + "/outputs", retunrClarifaiJSONRequest(this.state.input))
-    .then(response => response.json())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-    console.log("basarili");
-    console.log(cikti);
-  };
-
-  onRouteChange = (route) => {
-    if (route === 'signout') {
-      this.setState({isSignedIn: false})
-    } else if (route === 'home') {
-      this.setState({isSignedIn: true})
-    }
-    this.setState({route: route});
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <Particlee />
-        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} />
-        {this.state.route === "home" ? (
-          <div>
-            <Logo />
-            <Rank />
-            <ImageLinkForm
-              onInputChange={this.onInputChange}
-              onSubmit={this.onSubmit}
-            />
-            <FaceRecognition imageUrl={this.state.imageUrl} />
-          </div>
-        ) : this.state.route === "signin" ? (
-          <SignIn onRouteChange={this.onRouteChange} />
-        ) : (
-          <Register onRouteChange={this.onRouteChange} />
-        )}
-      </div>
-    );
-  }
-}
-
-export default App;
+  apiKey: '413d037fed0c4f1994f79edcb6ef02fd'
+ });
+ 
+ const retunrClarifaiJSONRequest = (imagegUrl) => {
+   const PAT = 'bf9078dc01664b64a55e0239d7d79ec6';
+   const USER_ID = 'emrekazaz13';       
+   const APP_ID = 'smartbrain';
+   const MODEL_ID = 'face-detection'; 
+   const IMAGE_URL = imagegUrl;
+ 
+   const raw = JSON.stringify({
+     "user_app_id": {
+         "user_id": USER_ID,
+         "app_id": APP_ID
+     },
+     "inputs": [
+         {
+             "data": {
+                 "image": {
+                     "url": IMAGE_URL
+                 }
+             }
+         }
+     ]
+ });
+ 
+ const requestOptions = {
+   method: 'POST',
+   headers: {
+       'Accept': 'application/json',
+       'Authorization': 'Key ' + PAT
+   },
+   body: raw
+ };
+ return requestOptions
+ 
+ }
+ 
+ // No Longer need this. Updated to particles-bg
+ // const particlesOptions = {
+ //   particles: {
+ //     number: {
+ //       value: 30,
+ //       density: {
+ //         enable: true,
+ //         value_area: 800
+ //       }
+ //     }
+ //   }
+ // }
+ 
+ class App extends Component {
+   constructor() {
+     super();
+     this.state = {
+       input: '',
+       imageUrl: '',
+       box: {},
+       route: 'signIn',
+       isSignedIn: false,
+       user: {
+         id: '',
+         name: '',
+         email: '',
+         entries: 0,
+         joined: ''
+       }
+     }
+   }
+ 
+   loadUser = (data) => {
+     this.setState({user: {
+       id: data.id,
+       name: data.name,
+       email: data.email,
+       entries: data.entries,
+       joined: data.joined
+     }})
+   }
+ 
+   calculateFaceLocation = (data) => {
+     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+     const image = document.getElementById('inputimage');
+     const width = Number(image.width);
+     const height = Number(image.height);
+     return {
+       leftCol: clarifaiFace.left_col * width,
+       topRow: clarifaiFace.top_row * height,
+       rightCol: width - (clarifaiFace.right_col * width),
+       bottomRow: height - (clarifaiFace.bottom_row * height)
+     }
+   }
+ 
+   displayFaceBox = (box) => {
+     this.setState({box: box});
+   }
+ 
+   onInputChange = (event) => {
+     this.setState({input: event.target.value});
+   }
+ 
+   onButtonSubmit = () => {
+     this.setState({imageUrl: this.state.input});
+    
+     // HEADS UP! Sometimes the Clarifai Models can be down or not working as they are constantly getting updated.
+     // A good way to check if the model you are using is up, is to check them on the clarifai website. For example,
+     // for the Face Detect Mode: https://www.clarifai.com/models/face-detection
+     // If that isn't working, then that means you will have to wait until their servers are back up. 
+ 
+     app.models.predict('face-detection', this.state.input)
+       .then(response => {
+         console.log('hi', response)
+         if (response) {
+           fetch('http://localhost:3000/image', {
+             method: 'put',
+             headers: {'Content-Type': 'application/json'},
+             body: JSON.stringify({
+               id: this.state.user.id
+             })
+           })
+             .then(response => response.json())
+             .then(count => {
+               this.setState(Object.assign(this.state.user, { entries: count}))
+             })
+ 
+         }
+         this.displayFaceBox(this.calculateFaceLocation(response))
+       })
+       .catch(err => console.log(err));
+   }
+ 
+ 
+   onRouteChange = (route) => {
+     if (route === 'signout') {
+       this.setState({isSignedIn: false})
+     } else if (route === 'home') {
+       this.setState({isSignedIn: true})
+     }
+     this.setState({route: route});
+   }
+ 
+   render() {
+     const { isSignedIn, imageUrl, route, box } = this.state;
+     return (
+       <div className="App">
+         <Particlee/>
+         <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
+         { route === 'home'
+           ? <div>
+               <Logo />
+               <Rank
+                 name={this.state.user.name}
+                 entries={this.state.user.entries}
+               />
+               <ImageLinkForm
+                 onInputChange={this.onInputChange}
+                 onButtonSubmit={this.onButtonSubmit}
+               />
+               <FaceRecognition box={box} imageUrl={imageUrl} />
+             </div>
+           : (
+              route === 'signIn'
+              ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+              : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+             )
+         }
+       </div>
+     );
+   }
+ }
+ 
+ export default App;
+ 
