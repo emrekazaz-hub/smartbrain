@@ -39,7 +39,7 @@ class Signin extends React.Component {
         }, 3600);
       }
       else {
-        alert('hatali email veya sifre');
+        alert('wrong email or password');
       }
     })
     .catch(err => console.log(err));
