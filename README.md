@@ -76,5 +76,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ![registerBlank](https://user-images.githubusercontent.com/80270457/236542477-55c71084-bac5-4b59-905c-d2fb01d3648a.png)
 ![registerEmailControl](https://user-images.githubusercontent.com/80270457/236542498-c1d1713d-bf41-4762-bd20-878b6d4e0f2c.png)
 ![homePage](https://user-images.githubusercontent.com/80270457/236542526-9dc68c04-705b-4b08-896b-23bb8dafaeca.png)
+![faceDetectHomaPage](https://user-images.githubusercontent.com/80270457/236543947-15e39431-3491-4e9f-9c6e-2dbc204eabee.png)
 ![animation_500_lhawu7ev](https://user-images.githubusercontent.com/80270457/236543771-32ed0318-c1e9-43f7-b43a-dbe7e65dbc94.gif)
 
