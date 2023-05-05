@@ -9,6 +9,7 @@ import Clarifai from "clarifai";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
+import ImageLoader from './components/Loader/ImageLoader';
 
 //You must add your own API key here from Clarifai.
 const app = new Clarifai.App({
@@ -63,23 +64,25 @@ const app = new Clarifai.App({
  //   }
  // }
  
+const inuitialState = {
+    input: '',
+    imageUrl: '',
+    box: {},
+    route: 'signIn',
+    isSignedIn: false,
+    user: {
+      id: '',
+      name: '',
+      email: '',
+      entries: 0,
+      joined: ''
+    }
+}
+
  class App extends Component {
    constructor() {
      super();
-     this.state = {
-       input: '',
-       imageUrl: '',
-       box: {},
-       route: 'signIn',
-       isSignedIn: false,
-       user: {
-         id: '',
-         name: '',
-         email: '',
-         entries: 0,
-         joined: ''
-       }
-     }
+     this.state = inuitialState;
    }
  
    loadUser = (data) => {
@@ -112,15 +115,14 @@ const app = new Clarifai.App({
    onInputChange = (event) => {
      this.setState({input: event.target.value});
    }
- 
+
    onButtonSubmit = () => {
+    if (!this.state.input) {
+    alert('Please enter a valid image URL');
+    console.log("Please enter a valid image URL");
+    return;
+  }
      this.setState({imageUrl: this.state.input});
-    
-     // HEADS UP! Sometimes the Clarifai Models can be down or not working as they are constantly getting updated.
-     // A good way to check if the model you are using is up, is to check them on the clarifai website. For example,
-     // for the Face Detect Mode: https://www.clarifai.com/models/face-detection
-     // If that isn't working, then that means you will have to wait until their servers are back up. 
- 
      app.models.predict('face-detection', this.state.input)
        .then(response => {
          console.log('hi', response)
@@ -146,7 +148,7 @@ const app = new Clarifai.App({
  
    onRouteChange = (route) => {
      if (route === 'signout') {
-       this.setState({isSignedIn: false})
+       this.setState({inuitialState})
      } else if (route === 'home') {
        this.setState({isSignedIn: true})
      }
@@ -155,6 +157,9 @@ const app = new Clarifai.App({
  
    render() {
      const { isSignedIn, imageUrl, route, box } = this.state;
+     if(this.state.route.length === 0){
+      return <ImageLoader/>
+     }
      return (
        <div className="App">
          <Particlee/>

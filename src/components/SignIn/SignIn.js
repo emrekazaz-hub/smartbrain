@@ -1,11 +1,13 @@
 import React from 'react';
+import ImageLoader from '../Loader/ImageLoader';
 
 class Signin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       signInEmail: '',
-      signInPassword: ''
+      signInPassword: '',
+      isLoading: false
     }
   }
 
@@ -26,20 +28,31 @@ class Signin extends React.Component {
         password: this.state.signInPassword
       })
     })
-      .then(response => response.json())
-      .then(user => {
-        if (user.id) {
+    .then(response => response.json())
+    .then(user => {
+      if (user.id) {
+        this.setState({ isLoading: true }); // yüklenme animasyonunu göster
+        setTimeout(() => { // 2.9 saniye beklet
           this.props.loadUser(user)
           this.props.onRouteChange('home');
-        }
-      })
+          this.setState({ isLoading: false }); // yüklenme animasyonunu kapat
+        }, 3600);
+      }
+      else {
+        alert('hatali email veya sifre');
+      }
+    })
+    .catch(err => console.log(err));
   }
+  
 
   render() {
     const { onRouteChange } = this.props;
+    const { isLoading } = this.state;
     return (
       <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-        <main className="pa4 black-80">
+        {isLoading && <ImageLoader />}
+        <main className={`pa4 black-80 ${isLoading ? 'dn' : 'db'}`}>
           <div className="measure">
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="f1 fw6 ph0 mh0">Sign In</legend>
@@ -73,7 +86,7 @@ class Signin extends React.Component {
               />
             </div>
             <div className="lh-copy mt3">
-              <p  onClick={() => onRouteChange('register')} className="f6 link dim black db pointer">Register</p>
+              <p onClick={() => onRouteChange('register')} className="f6 link dim black db pointer">Register</p>
             </div>
           </div>
         </main>

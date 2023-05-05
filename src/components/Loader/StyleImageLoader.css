@@ -1,0 +1,13 @@
+.lottie-container {
+    background-color: transparent;
+    border: none;
+    overflow: hidden;
+  }
+
+  .loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  

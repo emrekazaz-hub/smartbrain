@@ -2,6 +2,8 @@ body {
   margin: 0;
   font-family: "Courier New", 'Courier New', Courier, monospace;
   background: linear-gradient(89deg, #200035 20%, #1a82e6 180%);
+  background: url("./images/2644830.jpg") no-repeat fixed center;
+  background-size: cover;
 }
 
 code {
