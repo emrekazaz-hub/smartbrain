@@ -1,3 +1,13 @@
+### images about application ###
+![signinPage](https://user-images.githubusercontent.com/80270457/236542413-1754ed2b-b6db-498c-be96-0ec1d2fa4f4c.png)
+![registerSS](https://user-images.githubusercontent.com/80270457/236542436-19a4883f-24a4-4faf-a3f5-7c082a0b784c.png)
+![signinErr](https://user-images.githubusercontent.com/80270457/236542471-6bda12dd-1055-44b4-be4f-862b6a1daa07.png)
+![registerBlank](https://user-images.githubusercontent.com/80270457/236542477-55c71084-bac5-4b59-905c-d2fb01d3648a.png)
+![registerEmailControl](https://user-images.githubusercontent.com/80270457/236542498-c1d1713d-bf41-4762-bd20-878b6d4e0f2c.png)
+![homePage](https://user-images.githubusercontent.com/80270457/236542526-9dc68c04-705b-4b08-896b-23bb8dafaeca.png)
+![faceDetectHomaPage](https://user-images.githubusercontent.com/80270457/236543947-15e39431-3491-4e9f-9c6e-2dbc204eabee.png)
+![animation_500_lhawu7ev](https://user-images.githubusercontent.com/80270457/236543771-32ed0318-c1e9-43f7-b43a-dbe7e65dbc94.gif)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,14 +78,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-### images about application ###
-![signinPage](https://user-images.githubusercontent.com/80270457/236542413-1754ed2b-b6db-498c-be96-0ec1d2fa4f4c.png)
-![registerSS](https://user-images.githubusercontent.com/80270457/236542436-19a4883f-24a4-4faf-a3f5-7c082a0b784c.png)
-![signinErr](https://user-images.githubusercontent.com/80270457/236542471-6bda12dd-1055-44b4-be4f-862b6a1daa07.png)
-![registerBlank](https://user-images.githubusercontent.com/80270457/236542477-55c71084-bac5-4b59-905c-d2fb01d3648a.png)
-![registerEmailControl](https://user-images.githubusercontent.com/80270457/236542498-c1d1713d-bf41-4762-bd20-878b6d4e0f2c.png)
-![homePage](https://user-images.githubusercontent.com/80270457/236542526-9dc68c04-705b-4b08-896b-23bb8dafaeca.png)
-![faceDetectHomaPage](https://user-images.githubusercontent.com/80270457/236543947-15e39431-3491-4e9f-9c6e-2dbc204eabee.png)
-![animation_500_lhawu7ev](https://user-images.githubusercontent.com/80270457/236543771-32ed0318-c1e9-43f7-b43a-dbe7e65dbc94.gif)
 
